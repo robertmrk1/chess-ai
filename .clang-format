@@ -1,0 +1,31 @@
+﻿---
+BasedOnStyle: LLVM
+ColumnLimit: '100'
+TabWidth: '2'
+IndentPPDirectives: AfterHash
+AlignConsecutiveAssignments: true
+
+# Sorting of library headers. clang-format-10 does not support case-sensitive regex.
+IncludeBlocks: Regroup
+IncludeCategories:
+    # Exceptions for 3rd party headers without file extensions.
+    # Includes Qt libraries without matching <queue>
+  - Regex:           '^<(Eigen|Q[^(ueue)]|CCFits|Vc).*>'
+    Priority:        2
+
+    # Standard library headers do not include "." or numbers
+  - Regex:           '^<[a-z_/]+>'
+    Priority:        1
+
+    # C std headers
+  - Regex:           '^<(assert|complex|ctype|errno|fenv|float|inttypes|iso646|limits|locale|math|setjmp|signal|stdalign|stdarg|stdatomic|stdbit|stdbool|stdckdint|stddef|stdint|stdio|stdlib|stdnoreturn|string|tgmath|threads|time|uchar|wchar|wctype)\.h>'
+    Priority:        1
+
+    # Third-party library headers
+  - Regex:           '^<.*>'
+    Priority:        2
+    
+    # Project's headers
+  - Regex:           '^\".*\"'
+    Priority:        3
+...
